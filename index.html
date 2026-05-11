@@ -9,12 +9,14 @@
 </head>
 <body>
     <div id="app">
-        <!-- 顶部标题栏 -->
+        <!-- 顶部标题栏（新增排行榜按钮） -->
         <header class="header">
             <h1 class="class-name">❤️ 二年级（1）班 ❤️</h1>
             <div class="header-actions">
                 <button class="btn-style" id="btnSelectStyle" onclick="showPetStyleSelection()">🎨 选择风格</button>
                 <button class="btn-teacher" id="btnTeacher">👨‍🏫 教师模式</button>
+                <!-- 新增排行榜按钮，风格与其他按钮一致 -->
+                <button class="btn-ranking" id="btnRanking" style="margin-left: 8px;">🏆 排行榜</button>
             </div>
         </header>
 
@@ -67,6 +69,43 @@
                     </div>
                     <button class="btn-redeem" id="btnRedeem">🎁 兑换奖励</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- 新增：排行榜弹窗 -->
+        <div class="modal" id="rankingModal">
+            <div class="modal-content modal-large">
+                <h2>🏆 积分排行榜 Top10</h2>
+                <!-- 排行榜列表 -->
+                <div class="ranking-list" id="rankingList" style="margin: 20px 0; max-height: 60vh; overflow-y: auto;">
+                    <!-- 动态生成排行榜项（示例占位） -->
+                    <div class="ranking-item" style="display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="rank-num" style="width: 30px; height: 30px; line-height: 30px; text-align: center; background: #ffd700; color: #fff; border-radius: 50%; margin-right: 12px; font-weight: bold;">1</span>
+                            <span class="rank-name" style="font-size: 16px; font-weight: 500;">张三</span>
+                        </div>
+                        <span class="rank-score" style="font-size: 16px; color: #e63946; font-weight: bold;">980 分</span>
+                    </div>
+                    <div class="ranking-item" style="display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="rank-num" style="width: 30px; height: 30px; line-height: 30px; text-align: center; background: #c0c0c0; color: #fff; border-radius: 50%; margin-right: 12px; font-weight: bold;">2</span>
+                            <span class="rank-name" style="font-size: 16px; font-weight: 500;">李四</span>
+                        </div>
+                        <span class="rank-score" style="font-size: 16px; color: #e63946; font-weight: bold;">920 分</span>
+                    </div>
+                    <div class="ranking-item" style="display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="rank-num" style="width: 30px; height: 30px; line-height: 30px; text-align: center; background: #cd7f32; color: #fff; border-radius: 50%; margin-right: 12px; font-weight: bold;">3</span>
+                            <span class="rank-name" style="font-size: 16px; font-weight: 500;">王五</span>
+                        </div>
+                        <span class="rank-score" style="font-size: 16px; color: #e63946; font-weight: bold;">880 分</span>
+                    </div>
+                    <!-- 可继续添加4-10名占位，或由JS动态生成 -->
+                </div>
+                <!-- 返回主页按钮（风格与其他按钮一致） -->
+                <button class="btn-back-home" id="btnBackHome" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 500; margin-top: 16px;">
+                    🏠 返回主页
+                </button>
             </div>
         </div>
 
@@ -154,5 +193,23 @@
     <script src="js/effects.js"></script>
     <script src="js/feishu-sync.js"></script>
     <script src="js/app.js"></script>
+    <!-- 新增：排行榜弹窗控制脚本 -->
+    <script>
+        // 显示排行榜弹窗
+        document.getElementById('btnRanking').addEventListener('click', function() {
+            document.getElementById('rankingModal').classList.add('active');
+        });
+        // 返回主页（隐藏排行榜弹窗）
+        document.getElementById('btnBackHome').addEventListener('click', function() {
+            document.getElementById('rankingModal').classList.remove('active');
+        });
+        // 可选：点击弹窗外部关闭（如果原有modal有此逻辑，可复用）
+        window.addEventListener('click', function(e) {
+            const rankingModal = document.getElementById('rankingModal');
+            if (e.target === rankingModal) {
+                rankingModal.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
